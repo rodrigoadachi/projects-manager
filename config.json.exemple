@@ -1,0 +1,39 @@
+{
+  "config": {
+    "path": "./"
+  },
+  "projects": [
+    {
+      "name": "project-name",
+      "path": "projectName",
+      "repositories": [
+        {
+          "path": "api",
+          "repository": "git@...api"
+        },
+        {
+          "path": "web",
+          "repository": "git@...web"
+        },
+        {
+          "path": "mobile",
+          "repository": "git@...mobile"
+        }
+      ],
+      "tasks": [
+        {
+          "label": "api",
+          "command": "cd ./api; npm install -f; npm run start:dev",
+          "group": "api"
+        },
+        {
+          "label": "web",
+          "command": "cd ./web; npm install -f; npm run dev",
+          "group": "web"
+        },
+      ]
+    },
+
+    ...
+  ]
+}
