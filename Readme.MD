@@ -13,7 +13,7 @@ The purpose of this repository is to help management of GIT -based projects, org
 - `main.py`: main script that is responsible for doing all the work
 - `clean_install.py`: Script used for cleaning, removes all files and installation folders such as node_modles/, vendor/, package-lock.json, yarn.lock and compose.lock
 
-## Instalação
+## Installation
 
 1. Clone this repository using the following command:
 
@@ -28,7 +28,7 @@ The purpose of this repository is to help management of GIT -based projects, org
   pip install gitpython
 ```
 
-## Settings
+## Setup
 
 ```
 {
@@ -59,13 +59,15 @@ The purpose of this repository is to help management of GIT -based projects, org
 }
 ```
 
-## To create the folder structure and download the repositories just run the command below
+## Run
+
+To create the folder structure and download the repositories just run the command below
 
 ```
   python main.py
 ```
 
-## To remove all files and installation folders, such as node_modles/, supplier/, package-lock.json, yarn.lock and compose.lock, just run the command below
+To remove all files and installation folders, such as node_modles/, supplier/, package-lock.json, yarn.lock and compose.lock, just run the command below
 
 ```
   python clean_install.py
