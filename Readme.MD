@@ -1,34 +1,26 @@
-# GIT -based project manager
+# Project Automation Scripts
 
-## Description
+## main.py
 
-The purpose of this repository is to help management of GIT -based projects, organized folder projects, downloading the repository and creating Tasks for VSCode
+This project aims to help developers set up their projects quickly and in a standardized way. It performs three main actions: creating folders, cloning Git repositories, and generating task configurations for Visual Studio Code. To use it, follow the instructions below:
 
-## Project Structure
+### Setting Up the Project
 
-- `./config.json`: Main configuration file.
-- `./[PROJECT_NAME]`: Project root folder.
-  - `./[PROJECT_NAME]/.vscode`: Visual Studio Code settings.
-    - `./[PROJECT_NAME]/.vscode/tasks.json`: VSCode task settings.
-- `main.py`: main script that is responsible for doing all the work
-- `clean_install.py`: Script used for cleaning, removes all files and installation folders such as node_modles/, vendor/, package-lock.json, yarn.lock and compose.lock
+Before getting started, it's essential to configure the project by following these steps:
 
-## Installation
+1. Download and install Python (3.6 or higher) on your machine if you haven't already. You can do this by visiting python.org.
 
-1. Clone this repository using the following command:
+2. Download and install Git on your machine if you haven't already. You can do this by visiting git-scm.com.
 
-```
-  git clone git@github.com:rodrigoadachi/projects-manager.git projects
-  cd projects
-```
+3. Before running the script for the first time, open the terminal and execute the following command to install the necessary dependency:
 
-2. Install the project premises:
+   ```bash
+   pip install gitpython
+   ```
 
-```
-  pip install gitpython
-```
+### How to Use
 
-## Setup
+1. Edit the config.json file to configure your projects and repositories.
 
 ```
 {
@@ -48,8 +40,8 @@ The purpose of this repository is to help management of GIT -based projects, org
       "tasks": [
         {
           "label": "[REPOSITORY_NAME]", <<< -- Here you will define the name of the repository
-          "command": "command_task", <<< -- For more information go to the VSCode Tasks documentation in https://code.visualstudio.com/docs/editor/tasks-appendix
-          "group": "[GROUP_NAME]" <<< -- Name of Terminal Grouping in the VSCODE
+          "command": "command_task", <<< -- For more information, go to the VSCode Tasks documentation at https://code.visualstudio.com/docs/editor/tasks-appendix
+          "group": "[GROUP_NAME]" <<< -- Name of Terminal Grouping in VSCODE
         },
         // Add more tasks if necessary
       ]
@@ -57,18 +49,23 @@ The purpose of this repository is to help management of GIT -based projects, org
     // Add more projects if necessary
   ]
 }
-```
-
-## Run
-
-To create the folder structure and download the repositories just run the command below
 
 ```
-  python main.py
-```
 
-To remove all files and installation folders, such as node_modles/, supplier/, package-lock.json, yarn.lock and compose.lock, just run the command below
+2. Execute the script using the command python main.py.
 
-```
-  python clean_install.py
-```
+The script will create folder structures, download repositories, and generate configurations for VS Code.
+
+## clean_install.py
+
+This Python script performs specific cleanup in all subdirectories, excluding unnecessary folders and files. It is useful for preparing the environment for a clean installation or compression. Follow the instructions below to use it:
+
+### How to Use - clean_install.py
+
+1. Execute the script using the command python clean_install.py. Make sure to run the script in the folder where you want to perform the cleanup; it will check all subfolders for files such as package-lock.json, yarn.lock, composer.lock, and folders like node_modules, vendor to remove them.
+
+The script will remove the specified folders recursively, ensuring a clean installation.
+
+---
+
+**Nota:** Make sure to understand the implications of these scripts before running them, especially when deleting folders and files.
