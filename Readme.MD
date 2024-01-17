@@ -42,6 +42,7 @@ Before getting started, it's essential to configure the project by following the
           "label": "[REPOSITORY_NAME]", <<< -- Here you will define the name of the repository
           "command": "command_task", <<< -- For more information, go to the VSCode Tasks documentation at https://code.visualstudio.com/docs/editor/tasks-appendix
           "group": "[GROUP_NAME]" <<< -- Name of Terminal Grouping in VSCODE
+          "dependsOn": ["LABEL_DEPEND"] <<< -- Optional, in case you want a dependent task
         },
         // Add more tasks if necessary
       ]
@@ -69,6 +70,24 @@ This Python script performs specific cleanup in all subdirectories, excluding un
 1. Execute the script using the command python clean_install.py. Make sure to run the script in the folder where you want to perform the cleanup; it will check all subfolders for files such as package-lock.json, yarn.lock, composer.lock, and folders like node_modules, vendor to remove them.
 
 The script will remove the specified folders recursively, ensuring a clean installation.
+
+### script_backup_env.py
+
+This Python script backs up .env files from repositories to the config folder, renaming them according to the {name}-{path}.env pattern.
+
+How to Use - script_backup_env.py
+Execute the script using the command 
+
+  ```bash
+  python script_backup_env.py
+  ```
+
+Make sure to run the script in the folder where your project is located.
+The script will check each repository specified in config.json for a corresponding .env file. If found, it will be copied to the config folder with the modified name.
+
+### Future
+
+Create a global module in the NPM
 
 ---
 
