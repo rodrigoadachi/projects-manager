@@ -1,0 +1,327 @@
+{
+  "config": {
+    "path": "./"
+  },
+  "projects": [
+    {
+      "name": "santander-maisfacil",
+      "path": "santander/maisfacil",
+      "repositories": [
+        {
+          "path": "api",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/Chocolate/projeto-santander-facilita-ms-participant"
+        },
+        {
+          "path": "moderador",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/Chocolate/projeto-santander-facilita-moderador"
+        },
+        {
+          "path": "participant",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/Chocolate/projeto-santander-facilita-participante"
+        }
+      ],
+      "tasks": [
+        {
+          "label": "setupNodeEnv",
+          "command": "nvm use 14.21.3"
+        },
+        {
+          "label": "api",
+          "command": "cd ./api; yarn; yarn start:dev",
+          "group": "api",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "moderator-install",
+          "command": "cd ./moderador; yarn; composer update",
+          "group": "install",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "moderator-php",
+          "command": "cd ./moderador ; yarn php",
+          "group": "php",
+          "dependsOn": ["moderator-install"]
+        },
+        {
+          "label": "moderator-watch",
+          "command": "cd ./moderador ; yarn watch",
+          "group": "watch",
+          "dependsOn": ["moderator-install"]
+        },
+        {
+          "label": "participant-install",
+          "command": "cd ./participant; yarn; composer update",
+          "group": "install",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "participant-php",
+          "command": "cd ./participant ; yarn php",
+          "group": "php",
+          "dependsOn": ["participant-install"]
+        },
+        {
+          "label": "participant-watch",
+          "command": "cd ./participant ; yarn watch",
+          "group": "watch",
+          "dependsOn": ["participant-install"]
+        }
+      ]
+    },
+    {
+      "name": "samsung",
+      "path": "samsung/maissamsung",
+      "repositories": [
+        {
+          "path": "api",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/Chocolate/projeto-maissamsung-samsung-ms-participant"
+        },
+        {
+          "path": "moderator",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/Chocolate/projeto-maissamsung-samsung-moderador"
+        },
+        {
+          "path": "participant",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/Chocolate/projeto-maissamsung-samsung-participante"
+        }
+      ],
+      "tasks": [
+        {
+          "label": "setupNodeEnv",
+          "command": "nvm use 14.21.3"
+        },
+        {
+          "label": "api",
+          "command": "cd ./api; yarn; yarn start:dev",
+          "group": "api",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "moderator-install",
+          "command": "cd ./moderador; yarn; composer update",
+          "group": "install",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "moderator-php",
+          "command": "cd ./moderador ; yarn php",
+          "group": "php",
+          "dependsOn": ["moderator-install"]
+        },
+        {
+          "label": "moderator-watch",
+          "command": "cd ./moderador ; yarn watch",
+          "group": "watch",
+          "dependsOn": ["moderator-install"]
+        },
+        {
+          "label": "participant-install",
+          "command": "cd ./participant; yarn; composer update",
+          "group": "install",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "participant-php",
+          "command": "cd ./participant ; yarn php",
+          "group": "php",
+          "dependsOn": ["participant-install"]
+        },
+        {
+          "label": "participant-watch",
+          "command": "cd ./participant ; yarn watch",
+          "group": "watch",
+          "dependsOn": ["participant-install"]
+        }
+      ]
+    },
+    {
+      "name": "unilever-prime",
+      "path": "unilever/prime",
+      "repositories": [
+        {
+          "path": "api",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/Chocolate/projeto-prime-unilever-ms-participant"
+        },
+        {
+          "path": "moderador",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/Chocolate/projeto-prime-unilever-moderador"
+        },
+        {
+          "path": "participant",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/Chocolate/projeto-prime-unilever-participante"
+        }
+      ],
+      "tasks": [
+        {
+          "label": "setupNodeEnv",
+          "command": "nvm use 14.21.3"
+        },
+        {
+          "label": "api",
+          "command": "cd ./api; yarn; yarn start:dev",
+          "group": "api",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "moderator-install",
+          "command": "cd ./moderador; yarn; composer update",
+          "group": "install",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "moderator-php",
+          "command": "cd ./moderador ; yarn php",
+          "group": "php",
+          "dependsOn": ["moderator-install"]
+        },
+        {
+          "label": "moderator-watch",
+          "command": "cd ./moderador ; yarn watch",
+          "group": "watch",
+          "dependsOn": ["moderator-install"]
+        },
+        {
+          "label": "participant-install",
+          "command": "cd ./participant; yarn; composer update",
+          "group": "install",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "participant-php",
+          "command": "cd ./participant ; yarn php",
+          "group": "php",
+          "dependsOn": ["participant-install"]
+        },
+        {
+          "label": "participant-watch",
+          "command": "cd ./participant ; yarn watch",
+          "group": "watch",
+          "dependsOn": ["participant-install"]
+        }
+      ]
+    },
+    {
+      "name": "incentify",
+      "path": "incentify",
+      "repositories": [
+        {
+          "path": "moderador",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/Chocolate/sass-campanha-incentivo-moderador"
+        },
+        {
+          "path": "participante",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/Chocolate/sass-campanha-incentivo-participante"
+        },
+        {
+          "path": "account",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-account"
+        },
+        {
+          "path": "authentication",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-authentication"
+        },
+        {
+          "path": "backoffice",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-backoffice"
+        },
+        {
+          "path": "client",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-client"
+        },
+        {
+          "path": "comunication",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-comunication"
+        },
+        {
+          "path": "database",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-database"
+        },
+        {
+          "path": "gateway",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-gateway"
+        },
+        {
+          "path": "kpis",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-kpis"
+        },
+        {
+          "path": "lottery",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-lottery"
+        },
+        {
+          "path": "mechanic",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-mechanic"
+        },
+        {
+          "path": "notification",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-notification"
+        },
+        {
+          "path": "product",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-product"
+        },
+        {
+          "path": "tenants",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-tenants"
+        },
+        {
+          "path": "training",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-training"
+        },
+        {
+          "path": "user",
+          "repository": "git@ssh.dev.azure.com:v3/digidevs/SASS-CAMPANHA-INCENTIVO/sass-campanha-user"
+        }
+      ],
+      "tasks": [
+        {
+          "label": "setupNodeEnv",
+          "command": "nvm use 20.11.0"
+        },
+        {
+          "label": "authentication",
+          "command": "cd ./authentication ; yarn; yarn start:dev",
+          "group": "authentication",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "backoffice",
+          "command": "cd ./backoffice ; yarn; yarn start:dev",
+          "group": "authentication",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "user",
+          "command": "cd ./user ; yarn; yarn start:dev",
+          "group": "authentication",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "tenants",
+          "command": "cd ./tenants ; yarn; yarn start:dev",
+          "group": "gateway",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "gateway",
+          "command": "cd ./gateway ; yarn; yarn start:dev",
+          "group": "gateway",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "moderator",
+          "command": "cd ./moderador ; yarn ; yarn dev",
+          "group": "frontend",
+          "dependsOn": ["setupNodeEnv"]
+        },
+        {
+          "label": "participant",
+          "command": "cd ./participant ; yarn ; yarn dev",
+          "group": "frontend",
+          "dependsOn": ["setupNodeEnv"]
+        }
+      ]
+    }    
+  ]
+}
