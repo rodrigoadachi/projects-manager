@@ -1,6 +1,7 @@
 import os
 import subprocess
 import json
+import shutil
 
 def create_folder(path):
     try:
@@ -15,6 +16,20 @@ def download_repository(url, path):
         print(f"Repositório baixado em: {path}")
     except Exception as e:
         print(f"Falha ao baixar repositório: {e}")
+
+def copy_env_files(project):
+    config_folder = os.path.join(os.getcwd(), 'config')
+
+    for repo in project['repositories']:
+        env_file_name = f"{project['name']}-{repo['path']}.env"
+        env_file_path = os.path.join(config_folder, env_file_name)
+
+        if os.path.exists(env_file_path):
+            destination_path = os.path.join(project['path'], repo['path'])
+            destination_env_path = os.path.join(destination_path, '.env')
+
+            shutil.copy(env_file_path, destination_env_path)
+            print(f"{env_file_name} file copied to {destination_env_path}")
 
 def create_tasks(project):
     tasks_json = {
@@ -101,6 +116,9 @@ def process(project):
     tasks_json_path = os.path.join(vscode_path, 'tasks.json')
     tasks_json_content = create_tasks(project)
 
+    # Copy .env files
+    copy_env_files(project)
+    
     with open(tasks_json_path, 'w') as tasks_file:
         json.dump(tasks_json_content, tasks_file, indent=2)
 
