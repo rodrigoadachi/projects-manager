@@ -52,7 +52,11 @@ Before getting started, it's essential to configure the project by following the
 
 ```
 
-2. Execute the script using the command python main.py.
+2. Execute the script using the command.
+
+  ```bash
+  python main.py
+  ```
 
 The script will create folder structures, download repositories, and generate configurations for VS Code.
 

@@ -9,7 +9,7 @@ def create_folder(path):
     except OSError as error:
         print(f"Falha ao criar pasta: {error}")
 
-def download_reposition(url, path):
+def download_repository(url, path):
     try:
         subprocess.run(["git", "clone", url, path])
         print(f"Repositório baixado em: {path}")
@@ -36,6 +36,9 @@ def create_tasks(project):
         "tasks": []
     }
 
+    dependencies = set()
+    depends_on_set = set()
+
     for task in project.get('tasks', []):
         task_entry = {
             "label": task['label'],
@@ -43,24 +46,36 @@ def create_tasks(project):
             "command": task['command'],
             "isBackground": True,
             "problemMatcher": [],
-            "presentation": {
-							"group": task['group']
-            }
+            "presentation": {},
+            "dependsOn": []
         }
 
+        # Add 'group' if it exists
+        if 'group' in task:
+            task_entry["presentation"]["group"] = task['group']
+
+        # Adiciona 'dependsOn' se existir
+        if 'dependsOn' in task:
+            task_entry["dependsOn"] = task['dependsOn']
+            depends_on_set.update(task['dependsOn'])
+            
         tasks_json['tasks'].append(task_entry)
+        dependencies.add(task['label'])
 
-    # Adds the "Create Terminals" input based on the task labels
+    # Removes the tasks that are 'Dependon' from others
+    dependencies.difference_update(depends_on_set)
+    
+    # Adds the "Create Terminals" input only if there are dependencies
     create_terminals_entry = {
-        "label": "Create terminals",
-        "dependsOn": [task['label'] for task in project.get('tasks', [])],
-        "group": {
-					"kind": "build",
-					"isDefault": True
-        },
-        "runOptions": {
-					"runOn": "folderOpen"
-        }
+      "label": "Create terminals",
+      "dependsOn": list(dependencies),
+      "group": {
+          "kind": "build",
+          "isDefault": True
+      },
+      "runOptions": {
+          "runOn": "folderOpen"
+      }
     }
 
     tasks_json['tasks'].append(create_terminals_entry)
@@ -72,13 +87,13 @@ def process(project):
     root_folder = os.path.join(config_path, project['path'])
     create_folder(root_folder)
 
-    # Process repository in project
+    # Processes the repository in the project
     for repo in project['repositories']:
         folder_destination = os.path.join(root_folder, repo['path'])
-        url_repositorio = repo['repository']
+        url_repository = repo['repository']
 
         create_folder(folder_destination)
-        download_reposition(url_repositorio, folder_destination)
+        download_repository(url_repository, folder_destination)
 
     # Creates the .vscode directory and the Tasks.json file inside it
     vscode_path = os.path.join(root_folder, '.vscode')
