@@ -72,6 +72,7 @@ def run_pipeline_commands(commands, repo_path):
 # Itera sobre os projetos e repositórios no arquivo de configuração
 for project in config_data["projects"]:
     project_name = project["name"]
+    project_path = project["path"]
 
     for repository in project["repositories"]:
         repository_name = repository["path"]
@@ -86,20 +87,20 @@ for project in config_data["projects"]:
 
         while True:
             # Verifica se há mudanças no repositório
-            if has_changes(os.path.join(project_base_path, project_name, repository_name)):
+            if has_changes(os.path.join(project_base_path, project_path, repository_name)):
                 print(f"Mudança detectada no projeto {project_name}, repositório {repository_name}!")
                 print(f"Executando git pull...")
 
                 # Executa git pull para obter as mudanças mais recentes
-                subprocess.run(["git", "-C", os.path.join(project_base_path, project_name, repository_name), "pull"])
+                subprocess.run(["git", "-C", os.path.join(project_base_path, project_path, repository_name), "pull"])
 
                 print("Git pull concluído.")
 
                 # Executa o script YAML após o git pull
-                run_pipeline_commands(pipeline_commands, os.path.join(project_base_path, project_name, repository_name))
+                run_pipeline_commands(pipeline_commands, os.path.join(project_base_path, project_path, repository_name))
 
                 # Atualiza o commit mais recente
-                last_commit = get_remote_head_sha(os.path.join(project_base_path, project_name, repository_name))
+                last_commit = get_remote_head_sha(os.path.join(project_base_path, project_path, repository_name))
 
             # Espera por um tempo antes de verificar novamente
             time.sleep(10)  # Verifica a cada 10 segundos (ajuste conforme necessário)
