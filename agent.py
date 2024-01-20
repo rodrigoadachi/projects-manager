@@ -14,24 +14,10 @@ project_base_path = config_data["config"]["path"]
 config_output_path = "./config"
 
 def has_changes(repo_path):
-    # Obtém o SHA-1 do commit mais recente no branch local
-    result_local = subprocess.run(["git", "-C", repo_path, "rev-parse", "HEAD"], capture_output=True, text=True)
-    local_commit = result_local.stdout.strip()
+    # Obtém o status do branch remoto em relação ao branch local
+    result_status = subprocess.run(["git", "-C", repo_path, "status", "-uno", "--porcelain"], capture_output=True, text=True)
+    return bool(result_status.stdout.strip())
 
-    # Executa git fetch para atualizar as referências remotas
-    subprocess.run(["git", "-C", repo_path, "fetch"])
-
-    # Obtém o SHA-1 do commit mais recente no branch remoto
-    result_remote = subprocess.run(["git", "-C", repo_path, "rev-parse", "origin/master"], capture_output=True, text=True)
-    remote_commit = result_remote.stdout.strip()
-
-    # Obtém o número de commits diferentes entre o branch local e remoto
-    result_diff = subprocess.run(["git", "-C", repo_path, "rev-list", "--count", f"{local_commit}..{remote_commit}"], capture_output=True, text=True)
-    
-    # Verifica se a saída não está vazia antes de tentar converter para inteiro
-    commit_diff_count = int(result_diff.stdout.strip()) if result_diff.stdout.strip() else 0
-
-    return commit_diff_count > 0
 
 def get_remote_head_sha(repo_path):
     # Executa git fetch para atualizar as referências remotas
@@ -70,6 +56,8 @@ def run_pipeline_commands(commands, repo_path):
         subprocess.run(["bash", "-c", run_command], cwd=repo_path)
 
 # Itera sobre os projetos e repositórios no arquivo de configuração
+# ...
+
 for project in config_data["projects"]:
     project_name = project["name"]
     project_path = project["path"]
@@ -82,8 +70,6 @@ for project in config_data["projects"]:
         # Lê o arquivo YAML específico do projeto/repositorio
         with open(pipeline_file_path, "r") as file:
             pipeline_commands = yaml.safe_load(file)
-
-        last_commit = None
 
         while True:
             # Verifica se há mudanças no repositório
@@ -98,9 +84,6 @@ for project in config_data["projects"]:
 
                 # Executa o script YAML após o git pull
                 run_pipeline_commands(pipeline_commands, os.path.join(project_base_path, project_path, repository_name))
-
-                # Atualiza o commit mais recente
-                last_commit = get_remote_head_sha(os.path.join(project_base_path, project_path, repository_name))
 
             # Espera por um tempo antes de verificar novamente
             time.sleep(10)  # Verifica a cada 10 segundos (ajuste conforme necessário)
