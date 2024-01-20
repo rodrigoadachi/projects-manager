@@ -15,7 +15,9 @@ Before getting started, it's essential to configure the project by following the
 3. Before running the script for the first time, open the terminal and execute the following command to install the necessary dependency:
 
    ```bash
-   pip install gitpython
+    pip install gitpython
+    pip install PyYAML
+    pip install GitPython
    ```
 
 ### How to Use
